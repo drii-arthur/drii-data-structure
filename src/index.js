@@ -1,3 +1,7 @@
+let db = {
+  contacts: []
+}
+
 const contacts = [
   {
     id: 1,
@@ -37,46 +41,125 @@ const contacts = [
 ];
 
 function view() {
-  // array.map
-  console.log("<-------Menampilkan Data------->");
-  contacts.map(data => {
-    console.log(
-      data.id,
-      data.fullName,
-      data.phoneNumber,
-      data.email,
-      data.gender
-    );
-  });
+  let tbody = document.getElementById('table-row');
+  db.map((item, index) => {
+    let row = tbody.insertRow(); // tr
+    // td table
+    let fullName = row.insertCell(0);
+    let phoneNumber = row.insertCell(1);
+    let email = row.insertCell(2);
+    let gender = row.insertCell(3);
+    let action = row.insertCell(4);
+    fullName.innerHTML = item.fullName;
+    phoneNumber.innerHTML = item.phoneNumber;
+    email.innerHTML = item.email;
+    gender.innerHTML = item.gender;
+    action.innerHTML = `<a href="#" class="edit" data-toggle="modal" data-target="#exampleModal">edit</a>
+                          <a href="" class="delete">delete</a>`
+  })
 }
 
 function add(data) {
-  // spread operator ...
-  console.log("<----------Data telah di tambah--------->");
-  contacts.push({
-    id: 6,
-    fullName: "Muhammad Pandriadi",
-    phoneNumber: "08732872",
-    email: "driiarthur@gmail.com",
-    gender: "Male"
-  });
 
-  console.log(...data);
+  let result = [...contacts, data];
+  return result;
 }
-
 function edit(data, id) {
-  // array.filter
-  // spread operator ...
+
+  let result = contacts.map(item => {
+    // edit
+    if (item.id == id) {
+      return { ...item, ...data }
+    }
+    return item;
+  })
+  return result;
+
 }
 
-function remove(data, id) {
-  // array.fil`ter
-  // spread operator ....
-  contacts.pop();
-  console.log(...data);
+function remove(id) {
+  let result = contacts.filter(item => item.id != id)
+  return result
 }
 
-view(contacts);
-add(contacts);
-edit(contacts, 1);
-remove(contacts, 1);
+function updateDb(data) {
+  db = db.contacts = data
+
+}
+
+let myInput = {
+  id: 6,
+  fullName: "muhammad pandriadi",
+  phoneNumber: "0878789890",
+  email: "driiarthur@gmail.com",
+  gender: "Male"
+}
+
+let result;
+result = add(myInput);
+updateDb(result)
+
+
+view()
+// add()
+// result = edit(myInput, 1);
+// console.log(result);
+
+// result = remove(2);
+// console.log(result)
+
+// validation form
+// function formValidation(e) {
+//     e.preventDefault();
+//     let fullName = document.getElementById("fullName").value;
+//     
+//     
+//     let gender = document.getElementById("gender").value;
+
+//     if (fullName == "" || fullName == null) {
+//         document.getElementById("err-fullName").innerHTML = `<div class="alert alert-warning" role="alert">
+//         Nama Tidak Boleh Kosong !
+//       </div>`
+//     }
+//     return false;
+// }
+
+document.getElementById("submit").addEventListener('click', function (event) {
+  event.preventDefault();
+  let fullName = document.getElementById("fullName").value;
+  let phoneNumber = document.getElementById("phoneNumber").value;
+  let email = document.getElementById("email").value;
+  let number = /^[0-9]+$/;
+  if (fullName == "") {
+    let error = document.getElementById("err-fullName")
+    error.innerHTML = `<div class="alert alert-warning" role="alert">
+              Nama Tidak Boleh Kosong !
+            </div>`
+
+    return false;
+  }
+  if (phoneNumber == null || phoneNumber == "") {
+    let errPhone = document.getElementById("err-phoneNumber");
+    errPhone.innerHTML = `<div class="alert alert-warning" role="alert">
+     nomor Telpon Tidak Boleh Kosong !
+   </div>`;
+    return false;
+  } else if (!phoneNumber.match(number)) {
+    let errPhone = document.getElementById("err-phoneNumber");
+    errPhone.innerHTML = `<div class="alert alert-warning" role="alert">
+     nomor Telpon Harus Angka !
+   </div>`;
+    return false;
+  }
+
+  if (email == "" || email == null) {
+    let errEmail = document.getElementById("err-email");
+    errEmail.innerHTML = `<div class="alert alert-warning" role="alert">
+     email Telpon Tidak Boleh Kosong !
+   </div>`;
+    return false;
+  } else {
+    return true;
+  }
+
+}) 

@@ -1,3 +1,87 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  background-color:#fafbfd;
+}
+
+.form-tambah,.contact-manager{
+   border:1px solid #ced4da;
+   box-shadow: 0 4px 5px #ced4da;
+   background-color: white;
+ 
+}
+label,legend{
+  font-weight:bold
+}
+
+.gender{
+  font-weight: normal
+}
+.btn {
+  width:50%;
+  border-radius:0;
+  font-weight: bold;
+  font-size: 15px
+}
+.form-control{
+  border-radius:0
+}
+.form-control:focus{
+  border-radius:20rem
+}
+
+.search{
+  width:70%;
+  margin:20px;
+  display:inline-block;
+  border-radius:0
+}
+.filter{
+  display:inline;
+  padding:6px;
+  color:#495057;
+  border-color: #ced4da;
+}
+.table{
+  font-size: 15px;
+  width:95%;
+  margin:10px
+}
+.table-bordered{
+  border:0;
+}
+.table-bordered thead th{
+  border-top:0px;
+  border-left:0px
+}
+.table-bordered tbody td{
+  border-bottom:0;
+  border-left:0
+}
+.table-bordered tbody td:nth-child(5){
+  border-right:0
+}
+#table-row .edit{
+  color:#007bff
+}
+
+.table a{
+  padding:5px
+}
+.edit:hover{
+  text-decoration: none;
+  text-shadow: 0 0 1px #007bff
+}
+.edit{
+  color:#007bff;
+  font-weight: bold;
+}
+.delete{
+  color:#dc3545;
+  font-weight: bold;
+  
+}
+.delete:hover{
+  color:#dc3545;
+  text-decoration:none;
+  text-shadow: 0 0 1px #dc3545
 }
