@@ -18,42 +18,44 @@
 		</div>
 
 		<div class="row mb-5">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="form-tambah pt-4">
 					<form>
 						<div class="form-group px-3">
 							<label for="fullName">Full Name</label>
-							<input type="text" class="form-control" name="nama" id="fullName">
+							<input type="text" class="form-control" name="fullName" id="fullName"
+								value="muhammad pandriadi">
 							<code id="err-fullName"></code>
 						</div>
 						<div class="form-group px-3">
 							<label for="phoneNumber">Phone Number</label>
-							<input type="text" class="form-control" name="telpon" id="phoneNumber">
+							<input type="text" class="form-control" name="phoneNumber" id="phoneNumber" value="0123456">
 							<code id="err-phoneNumber"></code>
 						</div>
 						<div class="form-group px-3">
 							<label for="email">Email Address</label>
-							<input type="email" class="form-control" name="email" id="email">
+							<input type="email" class="form-control" name="email" id="email"
+								value="pandrir23@gmail.com">
 							<code id="err-email"></code>
 						</div>
 						<legend class="col-form-label col-sm-2 pt-0">Gender</legend>
 						<div class="col-sm-10">
 							<div class="form-check">
-								<input class="form-check-input" type="radio" name="gender" id="Male" value="Male"
+								<input class="form-check-input" type="radio" name="gender" value="Male" id="gender"
 									checked>
 								<label class="form-check-label gender" for="Male">
 									Male
 								</label>
 							</div>
 							<div class="form-check">
-								<input class="form-check-input " type="radio" name="gender" id="Female" value="Female">
+								<input class="form-check-input " type="radio" name="gender" value="Female" id="gender">
 								<label class="form-check-label gender" for="Female">
 									Female
 								</label>
 							</div>
 						</div>
 						<div class="text-center">
-							<button type="submit" class="btn btn-primary m-4 text-center" id="submit">Add</button>
+							<button type="submit" class="btn btn-primary m-4 text-center" id="submit">Save</button>
 						</div>
 					</form>
 				</div>
@@ -63,7 +65,7 @@
 			<!-- akhir class form -->
 
 
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<div class="contact-manager py-4">
 					<input type="text" class="form-control search" placeholder="Search . . .">
 					<select name="" id="" class="filter">
@@ -75,7 +77,8 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th scope="col ml-3">Full Name</th>
+								<th scope="col ml-3">ID</th>
+								<th scope="col">Full Name</th>
 								<th scope="col">Phone Number</th>
 								<th scope="col">email</th>
 								<th scope="col">Gender</th>

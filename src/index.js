@@ -1,6 +1,7 @@
 let db = {
   contacts: []
 }
+let i = 6;
 
 const contacts = [
   {
@@ -43,99 +44,49 @@ const contacts = [
 function view() {
   let tbody = document.getElementById('table-row');
   db.map((item, index) => {
-    let row = tbody.insertRow(); // tr
-    // td table
-    let fullName = row.insertCell(0);
-    let phoneNumber = row.insertCell(1);
-    let email = row.insertCell(2);
-    let gender = row.insertCell(3);
-    let action = row.insertCell(4);
+    // membuat baris tabel
+    let row = tbody.insertRow();
+    // menambahkan data id untuk identitas edit dan hapus
+    row.setAttribute("id", "data_" + item.id);
+    // membuat kolom tabel
+    let id = row.insertCell(0)
+    let fullName = row.insertCell(1);
+    let phoneNumber = row.insertCell(2);
+    let email = row.insertCell(3);
+    let gender = row.insertCell(4);
+    let action = row.insertCell(5);
+    id.innerHTML = item.id;
     fullName.innerHTML = item.fullName;
     phoneNumber.innerHTML = item.phoneNumber;
     email.innerHTML = item.email;
     gender.innerHTML = item.gender;
-    action.innerHTML = `<a href="#" class="edit" data-toggle="modal" data-target="#exampleModal">edit</a>
-                          <a href="" class="delete">delete</a>`
+    action.innerHTML = `<a href="#" class="edit" data-id=${item.id}>edit</a>
+                          <a href="#" class="delete" data-id=${item.id}>delete</a>`
   })
 }
+let fullName = document.getElementById("fullName").value;
+let phoneNumber = document.getElementById("phoneNumber").value;
+let email = document.getElementById("email").value;
+let gender = document.getElementById("gender").value;
+let number = /^[0-9]+$/;
+
 
 function add(data) {
-
   let result = [...contacts, data];
   return result;
 }
-function edit(data, id) {
-
-  let result = contacts.map(item => {
-    // edit
-    if (item.id == id) {
-      return { ...item, ...data }
-    }
-    return item;
-  })
-  return result;
-
-}
-
-function remove(id) {
-  let result = contacts.filter(item => item.id != id)
-  return result
-}
-
-function updateDb(data) {
-  db = db.contacts = data
-
-}
-
-let myInput = {
-  id: 6,
-  fullName: "muhammad pandriadi",
-  phoneNumber: "0878789890",
-  email: "driiarthur@gmail.com",
-  gender: "Male"
-}
-
-let result;
-result = add(myInput);
-updateDb(result)
-
-
-view()
-// add()
-// result = edit(myInput, 1);
-// console.log(result);
-
-// result = remove(2);
-// console.log(result)
-
-// validation form
-// function formValidation(e) {
-//     e.preventDefault();
-//     let fullName = document.getElementById("fullName").value;
-//     
-//     
-//     let gender = document.getElementById("gender").value;
-
-//     if (fullName == "" || fullName == null) {
-//         document.getElementById("err-fullName").innerHTML = `<div class="alert alert-warning" role="alert">
-//         Nama Tidak Boleh Kosong !
-//       </div>`
-//     }
-//     return false;
-// }
-
-document.getElementById("submit").addEventListener('click', function (event) {
+let validasi = document.getElementById("submit").addEventListener('click', function (event) {
   event.preventDefault();
   let fullName = document.getElementById("fullName").value;
   let phoneNumber = document.getElementById("phoneNumber").value;
   let email = document.getElementById("email").value;
   let number = /^[0-9]+$/;
+
   if (fullName == "") {
     let error = document.getElementById("err-fullName")
     error.innerHTML = `<div class="alert alert-warning" role="alert">
               Nama Tidak Boleh Kosong !
             </div>`
-
     return false;
   }
   if (phoneNumber == null || phoneNumber == "") {
@@ -155,11 +106,56 @@ document.getElementById("submit").addEventListener('click', function (event) {
   if (email == "" || email == null) {
     let errEmail = document.getElementById("err-email");
     errEmail.innerHTML = `<div class="alert alert-warning" role="alert">
-     email Telpon Tidak Boleh Kosong !
+     email Tidak Boleh Kosong !
    </div>`;
     return false;
-  } else {
+  }
+  else {
     return true;
   }
 
-}) 
+})
+function edit(data, id) {
+
+  let result = contacts.map(item => {
+    // edit
+    if (item.id == id) {
+      return { ...item, ...data }
+    }
+    return item;
+  })
+  return result;
+
+}
+
+function remove(id) {
+  let result = contacts.filter(item => item.id != id)
+  return result
+}
+
+function updateDb(data) {
+  db = db.contact = data
+}
+
+let myInput = {
+  id: i++,
+  fullName: fullName,
+  phoneNumber: phoneNumber,
+  email: email,
+  gender: gender
+}
+
+let result;
+result = add(myInput);
+updateDb(result)
+
+
+view()
+// add()
+// result = edit(myInput, 1);
+// console.log(result);
+
+// result = remove(2);
+// console.log(result)
+
+

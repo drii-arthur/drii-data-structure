@@ -57,7 +57,7 @@ label,legend{
   border-bottom:0;
   border-left:0
 }
-.table-bordered tbody td:nth-child(5){
+.table-bordered tbody td:nth-child(6){
   border-right:0
 }
 #table-row .edit{
