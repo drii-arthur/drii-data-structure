@@ -68,14 +68,12 @@ let fullName = document.getElementById("fullName").value;
 let phoneNumber = document.getElementById("phoneNumber").value;
 let email = document.getElementById("email").value;
 let gender = document.getElementById("gender").value;
-let number = /^[0-9]+$/;
-
 
 function add(data) {
   let result = [...contacts, data];
   return result;
 }
-let validasi = document.getElementById("submit").addEventListener('click', function (event) {
+document.getElementById("submit").addEventListener('click', function (event) {
   event.preventDefault();
   let fullName = document.getElementById("fullName").value;
   let phoneNumber = document.getElementById("phoneNumber").value;
