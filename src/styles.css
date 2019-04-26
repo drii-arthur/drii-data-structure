@@ -1,22 +1,19 @@
 body {
-  font-family: 'Open Sans', sans-serif;
-  background-color:#fafbfd;
-}
+  font-family: sans-serif;
+  background-color: whitesmoke;
 
-.form-tambah,.contact-manager{
-   border:1px solid #ced4da;
-   box-shadow: 0 4px 5px #ced4da;
-   background-color: white;
- 
 }
 label,legend{
   font-weight:bold
 }
 
-.gender{
-  font-weight: normal
+.form-tambah,.contact-manager{
+  border:1px solid #ced4da;
+  box-shadow: 0 4px 5px #ced4da;
+  background-color: white;
+
 }
-.btn {
+.tombol {
   width:50%;
   border-radius:0;
   font-weight: bold;
@@ -25,22 +22,23 @@ label,legend{
 .form-control{
   border-radius:0
 }
-.form-control:focus{
-  border-radius:20rem
-}
-
 .search{
-  width:70%;
   margin:20px;
   display:inline-block;
   border-radius:0
 }
 .filter{
-  display:inline;
-  padding:6px;
+  margin:20px;
+  padding:10px;
   color:#495057;
   border-color: #ced4da;
+  background-color:transparent;
+  font-weight: bold;
+  border-radius:0;
+  font-size: 13px
 }
+
+
 .table{
   font-size: 15px;
   width:95%;
@@ -60,28 +58,45 @@ label,legend{
 .table-bordered tbody td:nth-child(6){
   border-right:0
 }
-#table-row .edit{
+
+#kolom-data #edit{
   color:#007bff
 }
 
 .table a{
   padding:5px
 }
-.edit:hover{
+#edit:hover{
   text-decoration: none;
   text-shadow: 0 0 1px #007bff
 }
-.edit{
+#edit{
   color:#007bff;
   font-weight: bold;
 }
-.delete{
+#hapus{
   color:#dc3545;
   font-weight: bold;
   
 }
-.delete:hover{
+#hapus:hover{
   color:#dc3545;
   text-decoration:none;
   text-shadow: 0 0 1px #dc3545
+}
+
+.alert{
+  position: relative;
+  margin:5px
+}
+
+.alert:before{
+  content: "";
+  position: absolute;
+  width:10px;
+  height:10px;
+  bottom:-5px;
+  left:20px;
+  background-color:#fff3cd;
+  transform:rotate(45deg)
 }

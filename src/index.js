@@ -1,9 +1,6 @@
-let db = {
-  contacts: []
-}
-let i = 6;
 
-const contacts = [
+let i = 6;
+const contact = [
   {
     id: 1,
     fullName: "Genna Arnli",
@@ -41,119 +38,382 @@ const contacts = [
   }
 ];
 
-function view() {
-  let tbody = document.getElementById('table-row');
-  db.map((item, index) => {
-    // membuat baris tabel
-    let row = tbody.insertRow();
-    // menambahkan data id untuk identitas edit dan hapus
-    row.setAttribute("id", "data_" + item.id);
-    // membuat kolom tabel
-    let id = row.insertCell(0)
-    let fullName = row.insertCell(1);
-    let phoneNumber = row.insertCell(2);
-    let email = row.insertCell(3);
-    let gender = row.insertCell(4);
-    let action = row.insertCell(5);
-    id.innerHTML = item.id;
-    fullName.innerHTML = item.fullName;
-    phoneNumber.innerHTML = item.phoneNumber;
-    email.innerHTML = item.email;
-    gender.innerHTML = item.gender;
-    action.innerHTML = `<a href="#" class="edit" data-id=${item.id}>edit</a>
-                          <a href="#" class="delete" data-id=${item.id}>delete</a>`
-  })
-}
-let fullName = document.getElementById("fullName").value;
-let phoneNumber = document.getElementById("phoneNumber").value;
-let email = document.getElementById("email").value;
-let gender = document.getElementById("gender").value;
+//search
 
+const search = document.getElementById('search');
+
+search.addEventListener('keyup', function (e) {
+  const val = e.target.value;
+  view('search', val)
+})
+
+
+// view
+let dataUi = null;
+const view = (sty, val = '') => {
+  if (sty == null) {
+    let tbody = document.getElementById("kolom_data");
+    tbody.innerHTML = "";
+    contact.map((item, index) => {
+      // buat table
+      let row = tbody.insertRow();
+      // kasih atribut agar mudah delete dan edit
+      row.setAttribute("id", "data_" + item.id);
+
+      //isi kolom dengan data
+      let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
+      let cell3 = row.insertCell(2);
+      let cell4 = row.insertCell(3);
+      let cell5 = row.insertCell(4);
+      let cell6 = row.insertCell(5);
+
+      cell1.innerHTML = item.id;
+      cell2.innerHTML = item.fullName;
+      cell3.innerHTML = item.email;
+      cell4.innerHTML = item.phoneNumber;
+      cell5.innerHTML = item.gender;
+      cell6.innerHTML = `
+      <a href="#" id="edit" data-id="${item.id}"> Edit
+      </a>
+      <a href="#" id="hapus" data-id=${item.id}> Hapus
+      </a>
+    `;
+      // end
+    });
+  } else if (sty == "male") {
+    let tbody = document.getElementById("kolom_data");
+    tbody.innerHTML = "";
+    contact.map((item, index) => {
+      if (item.gender == "Male") {
+        // buat table
+        let row = tbody.insertRow();
+        // kasih atribut agar mudah delete dan edit
+        row.setAttribute("id", "data_" + item.id);
+
+        //isi kolom dengan data
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let cell6 = row.insertCell(5);
+
+        cell1.innerHTML = item.id;
+        cell2.innerHTML = item.fullName;
+        cell3.innerHTML = item.email;
+        cell4.innerHTML = item.phoneNumber;
+        cell5.innerHTML = item.gender;
+        cell6.innerHTML = `
+        <a href="#" id="hapus" data-id=${item.id}> Hapus
+        </a>
+        <a href="#" id="edit" data-id="${item.id}"> Edit
+        </a>
+      `;
+      }
+      // end
+    });
+  } else if (sty == "female") {
+    let tbody = document.getElementById("kolom_data");
+    tbody.innerHTML = "";
+    contact.map((item, index) => {
+      if (item.gender == "Female") {
+        // buat table
+        let row = tbody.insertRow();
+        // kasih atribut agar mudah delete dan edit
+        row.setAttribute("id", "data_" + item.id);
+
+        //isi kolom dengan data
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let cell6 = row.insertCell(5);
+
+        cell1.innerHTML = item.id;
+        cell2.innerHTML = item.fullName;
+        cell3.innerHTML = item.email;
+        cell4.innerHTML = item.phoneNumber;
+        cell5.innerHTML = item.gender;
+        cell6.innerHTML = `
+        <a href="#" id="hapus" data-id=${item.id}> Hapus
+        </a>
+        <a href="#" id="edit" data-id="${item.id}"> Edit
+        </a>
+      `;
+      }
+      // end
+    });
+  } else {
+    let tbody = document.getElementById("kolom_data");
+    tbody.innerHTML = "";
+
+    contact.map(item => {
+      if (item.fullName.toLowerCase().indexOf(val) != -1) {
+        // buat table
+        let row = tbody.insertRow();
+        // kasih atribut agar mudah delete dan edit
+        row.setAttribute("id", "data_" + item.id);
+
+        //isi kolom dengan data
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let cell6 = row.insertCell(5);
+
+        cell1.innerHTML = item.id;
+        cell2.innerHTML = item.fullName;
+        cell3.innerHTML = item.email;
+        cell4.innerHTML = item.phoneNumber;
+        cell5.innerHTML = item.gender;
+        cell6.innerHTML = `
+        <a href="#" id="hapus" data-id=${item.id}> Hapus
+        </a>
+        <a href="#" id="edit" data-id="${item.id}"> Edit
+        </a>
+      `;
+      }
+    })
+  }
+};
+
+// tambah data
 function add(data) {
-  let result = [...contacts, data];
+  let result = contact.push(data);
   return result;
 }
-document.getElementById("submit").addEventListener('click', function (event) {
-  event.preventDefault();
-  let fullName = document.getElementById("fullName").value;
-  let phoneNumber = document.getElementById("phoneNumber").value;
-  let email = document.getElementById("email").value;
-  let number = /^[0-9]+$/;
 
-  if (fullName == "") {
-    let error = document.getElementById("err-fullName")
+function emailVal(email) {
+  let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
+//validasi
+function validasi(fullName, email, phone) {
+  // cek input tidak boleh kosong
+  if (fullName != "" && email != "" && phone != "") {
+    // input harus lebih dari 3 karakter
+    if (fullName.length >= 3 && email.length >= 3 && phone.length >= 3) {
+      // cek apakah email vadlid
+      if (emailVal(email)) {
+        //cek no hp
+        if (phone.match(/^[0-9]+$/)) {
+          return true
+        } else {
+          let error = document.getElementById("error");
+          error.innerHTML = `<div class="alert alert-warning" role="alert">
+          inputan harus angka !
+        </div>`
+          return false;
+        }
+      } else {
+        let error = document.getElementById("error");
+        error.innerHTML = `<div class="alert alert-warning" role="alert">
+        email tidak valid !
+      </div>`
+        return false;
+      }
+
+    } else {
+      let error = document.getElementById("error");
+      error.innerHTML = `<div class="alert alert-warning" role="alert">
+      inputan harus lebih dari 3 !
+    </div>`
+      return false;
+    }
+
+  } else {
+    let error = document.getElementById("error");
     error.innerHTML = `<div class="alert alert-warning" role="alert">
-              Nama Tidak Boleh Kosong !
-            </div>`
+          inputan Tidak Boleh Kosong !
+        </div>`
     return false;
   }
-  if (phoneNumber == null || phoneNumber == "") {
-    let errPhone = document.getElementById("err-phoneNumber");
-    errPhone.innerHTML = `<div class="alert alert-warning" role="alert">
-     nomor Telpon Tidak Boleh Kosong !
-   </div>`;
-    return false;
-  } else if (!phoneNumber.match(number)) {
-    let errPhone = document.getElementById("err-phoneNumber");
-    errPhone.innerHTML = `<div class="alert alert-warning" role="alert">
-     nomor Telpon Harus Angka !
-   </div>`;
-    return false;
-  }
+}
 
-  if (email == "" || email == null) {
-    let errEmail = document.getElementById("err-email");
-    errEmail.innerHTML = `<div class="alert alert-warning" role="alert">
-     email Tidak Boleh Kosong !
-   </div>`;
-    return false;
-  }
-  else {
-    return true;
-  }
 
-})
+
+// hapus
+function remove(id) {
+  let result = contact.filter(item => item.id !== id);
+  return result;
+}
+
+// edit
 function edit(data, id) {
-
-  let result = contacts.map(item => {
-    // edit
+  let result = contact.map(item => {
     if (item.id == id) {
-      return { ...item, ...data }
+      return { ...item, ...data };
     }
     return item;
-  })
+  });
   return result;
-
 }
 
-function remove(id) {
-  let result = contacts.filter(item => item.id != id)
-  return result
-}
+// e.target.attributes[2].nodeValue 
+document.addEventListener('click', function (e) {
 
-function updateDb(data) {
-  db = db.contact = data
-}
+  // tombol hapus
+  if (e.target.id == 'hapus') {
+    const id = e.target.attributes[2].nodeValue;
+    const data = document.getElementById('data_' + id);
+    data.innerHTML = "";
+    remove(id)
 
-let myInput = {
-  id: i++,
-  fullName: fullName,
-  phoneNumber: phoneNumber,
-  email: email,
-  gender: gender
-}
+    // kosongkan input form
+    fullname.value = "";
+    phone.value = "";
+    email.value = "";
+  }
 
-let result;
-result = add(myInput);
-updateDb(result)
+  // tombol edit
+  if (e.target.id == 'edit') {
+    const id = e.target.attributes[2].nodeValue;
+
+    let fullname = document.getElementById("fullname");
+    let email = document.getElementById("email");
+    let phone = document.getElementById("phone");
+    let gender = document.getElementById("gender");
+    let data_id = document.getElementById("id");
+
+    // ambil data
+    let data = []
+    contact.filter(item => {
+      if (item.id == id) {
+        data = item;
+      }
+    })
 
 
-view()
-// add()
-// result = edit(myInput, 1);
-// console.log(result);
 
-// result = remove(2);
-// console.log(result)
+    fullname.value = data.fullName;
+    email.value = data.email;
+    phone.value = data.phoneNumber;
+    gender.value = data.gender;
+    data_id.value = data.id;
 
+    //ubah id tambah ke edit data
+    const ubah = document.getElementById('tambah');
+    ubah.setAttribute('id', 'ubah')
 
+  }
+
+  //jika tombol save di klik
+
+  // 1. ubah datanya
+  if (e.target.id == 'ubah') {
+
+    let fullname = document.getElementById("fullname");
+    let email = document.getElementById("email");
+    let phone = document.getElementById("phone");
+    let gender = document.getElementById("gender");
+    let data_id = document.getElementById("id");
+
+    const valid = validasi(fullname.value, email.value, phone.value);
+
+    if (valid) {
+
+      let data_tab = document.getElementById('data_' + data_id.value);
+      data_tab.cells[1].innerHTML = fullname.value;
+      data_tab.cells[2].innerHTML = email.value;
+      data_tab.cells[3].innerHTML = phone.value;
+      data_tab.cells[4].innerHTML = gender.value;
+
+      // masukan data
+      let myinput = {
+        fullName: fullname.value,
+        phoneNumber: phone.value,
+        email: email.value,
+        gender: gender.value
+      };
+
+      edit(myinput, data_id.value);
+
+      // kosongkan input form
+      fullname.value = "";
+      phone.value = "";
+      email.value = "";
+
+      const ubah = document.getElementById('ubah');
+      ubah.setAttribute('id', 'tambah')
+      //cukup edit attribut aja 
+      return false;
+    }
+  }
+
+  // 2. tambah datanya
+  if (e.target.id == 'tambah') {
+    let fullname = document.getElementById("fullname");
+    let email = document.getElementById("email");
+    let phone = document.getElementById("phone");
+    let gender = document.getElementById("gender");
+
+    const valid = validasi(fullname.value, email.value, phone.value);
+
+    // cek validasi
+    if (valid) {
+      // buat table
+      let tbody = document.getElementById("kolom_data");
+      let row = tbody.insertRow();
+      let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
+      let cell3 = row.insertCell(2);
+      let cell4 = row.insertCell(3);
+      let cell5 = row.insertCell(4);
+      let cell6 = row.insertCell(5);
+      row.setAttribute('id', `data_${i}`)
+
+      cell1.innerHTML = i;
+      cell2.innerHTML = fullname.value;
+      cell3.innerHTML = email.value;
+      cell4.innerHTML = phone.value;
+      cell5.innerHTML = gender.value;
+      cell6.innerHTML = `
+      <a href="#" id="edit" data-id="${i}"> Edit
+      </a>
+      <a href="#" id="hapus" data-id="${i}"> Hapus
+      </a>
+      `;
+
+      // masukan data
+      let myinput = {
+        id: i++,
+        fullName: fullname.value,
+        phoneNumber: phone.value,
+        email: email.value,
+        gender: gender.value
+      };
+
+      add(myinput);
+
+      // kosongkan input form
+      fullname.value = "";
+      phone.value = "";
+      email.value = "";
+    }
+
+  }
+
+  // filter by gender
+  if (e.target.id == "gender") {
+    const data = e.target.attributes[3].nodeValue;
+
+    if (data == "male") {
+      dataUi = 'male';
+    } else if (data == "female") {
+      dataUi = "female";
+    } else {
+      dataUi = null;
+    }
+
+    view(dataUi)
+    return false;
+  }
+
+  // endclik
+})
+
+view(dataUi);
